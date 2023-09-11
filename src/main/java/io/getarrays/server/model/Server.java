@@ -28,4 +28,8 @@ public class Server {
     private String type;
     private String imageUrl;
     private Status status;
+
+
+
+
 }
