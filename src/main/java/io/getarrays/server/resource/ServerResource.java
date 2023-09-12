@@ -32,21 +32,31 @@ public class ServerResource {
                         .timestamp(now())
                         .data(Map.of("servers", serverService.list(10)))
                         .message("Server retrieved:")
-                        .status(HttpStatus.valueOf(HttpStatus.OK.toString()))
+                        .status(HttpStatus.OK)
                         .build()
         );
     }
     @GetMapping("/ping/{ipAddress}")
     public ResponseEntity<Response> pingServer(@PathVariable("ipAddress") String ipAddress) throws IOException {
         Server server=serverService.ping(ipAddress);
+        if(server!=null){
         return ResponseEntity.ok(
                 Response.builder()
                         .timestamp(now())
                         .data(Map.of("servers", server))
                         .message(server.getStatus()== Status.SERVER_UP ? "Ping Success":"Ping failed")
-                        .status(HttpStatus.valueOf(HttpStatus.OK.toString()))
+                        .status(OK)
                         .build()
-        );
+        );}
+        else{
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Response.builder()
+                    .timestamp(now())
+                            .message("Error while  pinging the server")
+                            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                            .build()
+                    );
+        }
     }
     @PostMapping("/save")
     public ResponseEntity<Response> saveServer(@RequestBody @Valid Server server) {
@@ -56,7 +66,7 @@ public class ServerResource {
                         .timestamp(now())
                         .data(Map.of("servers", serverService.create(server)))
                         .message("Server created")
-                        .status(HttpStatus.valueOf(HttpStatus.CREATED.toString()))
+                        .status(HttpStatus.CREATED)
                         .build()
         );
     }
@@ -68,7 +78,7 @@ public class ServerResource {
                         .timestamp(now())
                         .data(Map.of("servers", serverService.get(id)))
                         .message("Server retrieved")
-                        .status(HttpStatus.valueOf(HttpStatus.OK.toString()))
+                        .status(HttpStatus.OK)
                         .build()
         );
     }
@@ -79,12 +89,12 @@ public class ServerResource {
                         .timestamp(now())
                         .data(Map.of("deleted", serverService.delete(id)))
                         .message("Server deleted")
-                        .status(HttpStatus.valueOf(HttpStatus.OK.toString()))
+                        .status(HttpStatus.OK)
                         .build()
         );
     }
     @GetMapping(path ="/image/{fileName}",produces = IMAGE_PNG_VALUE)
     public byte[] deleteServer(@PathVariable("fileName") String fileName) throws IOException {
-        return Files.readAllBytes(Paths.get(System.getProperty("user.home")+"Downloads/images/"+fileName));
+        return Files.readAllBytes(Paths.get(System.getProperty("user.home")+"/Downloads/images/"+fileName));
     }
 }
