@@ -12,6 +12,7 @@ import { DataState } from './enum/data-state.enum';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  title:string='serverapp'
   appState$:Observable<AppState<CustomResponse>>
   constructor(private serverService:ServerService){ }
 
