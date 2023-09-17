@@ -6,5 +6,6 @@ export interface Server{
     name:string;
     memory:string;
     imageUrl:string;
+    type:string;
     status:Status;
 }
