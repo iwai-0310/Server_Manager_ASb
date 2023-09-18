@@ -1,0 +1,11 @@
+.row-bg-color{
+    background-color: steelblue;
+}
+tr{
+    position: relative;
+    left: 170px;
+}
+thead{
+    position: relative;
+    left: 170px;
+}
