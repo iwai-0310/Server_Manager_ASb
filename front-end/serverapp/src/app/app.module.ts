@@ -4,6 +4,7 @@ import {HttpClientModule} from '@angular/common/http'
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
+import Popper from 'popper.js';
 
 @NgModule({
   declarations: [
@@ -18,4 +19,7 @@ import { FormsModule } from '@angular/forms';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule { 
+  
+}
